@@ -1,0 +1,270 @@
+! The cumulative distribution functions of several distributions 
+! 標準正規分布，t分布，χ2乗分布，F分布の累積確率分布
+! ガンマ関数，ベータ関数
+
+EXTERNAL FUNCTION NormalLCum(z)  ! 標準正規分布の下側累積確率
+REM 標準正規分布に従う確率変数の値がz以下である確率 
+REM 奥村晴彦著 C言語による最新アルゴリズム辞典(技術評論社刊)より(normal.c)
+DECLARE NUMERIC i, z2, prev, p, t
+LET z2 = z^2
+LET p = z * EXP(-0.5 * z2) / SQR(2 * PI)
+LET t = p
+FOR i = 3 TO 199 STEP 2
+   LET  prev = p
+   LET  t = t * (z2 / i)
+   LET  p = p + t
+   IF p = prev THEN
+      LET NormalLCum = 0.5 + p
+      EXIT FUNCTION
+   END IF
+   IF z > 0 THEN
+      LET NormalLCum = 1
+   ELSE
+      LET NormalLCum = 0
+   END IF
+NEXT i
+END FUNCTION
+
+EXTERNAL FUNCTION NormalUCum(z)  ! 正規分布の上側累積確率
+REM 標準正規分布に従う確率変数の値がz以上である確率 
+DECLARE EXTERNAL FUNCTION NormalLCum
+LET NormalUCum=1-NormalLCum(z)
+END FUNCTION
+
+EXTERNAL FUNCTION InvNormalUCum(p) 
+REM 標準正規分布に従う確率変数の値がz以上である確率がpとなるz
+DECLARE EXTERNAL FUNCTION NormalUCum
+DECLARE NUMERIC z,z1
+REM Newton法
+DEF f(x)= p - NormalUCum(x)
+DEF g(x)=1/(SQR(2*PI))*EXP(-x^2/2)        ! g(x)=f'(x)
+LET z=0
+DO 
+   LET z1=z-f(z)/g(z)
+   IF ABS(z1-z)<1e-7 THEN EXIT DO
+   LET z=z1
+LOOP
+LET z1=z-f(z)/g(z)
+LET InvNormalUCum=z
+END FUNCTION
+
+
+EXTERNAL FUNCTION tLCum(df, t) ! t分布の下側累積確率 
+REM 自由度dfのt分布に従う確率変数の値がt以下である確率
+REM 奥村晴彦著 C言語による最新アルゴリズム辞典(技術評論社刊)より(tdist.c)
+DECLARE NUMERIC i
+DECLARE NUMERIC c2, p, s
+LET c2 = df / (df + t * t)  !/* COS^2 
+LET s = SQR(1 - c2)
+IF t < 0 THEN LET s = -s    !/* SIN 
+LET p = 0
+FOR i = MOD(df,2) + 2 TO df STEP 2
+   LET p = p + s
+   LET s = s * (i - 1) * c2 / i
+NEXT i
+IF MOD(df,2)=1 THEN             !/* 自由度が奇数 */
+   LET TLCum = 0.5+(p*SQR(c2)+ATN(t/SQR(df)))/PI
+ELSE                            !/* 自由度が偶数 */
+   LET TLCum = (1 + p) / 2
+END IF
+END FUNCTION
+
+EXTERNAL  FUNCTION tUCum(df, t)  ! t分布の上側累積確率 
+REM 自由度dfのt分布に従う確率変数の値がt以上である確率
+DECLARE EXTERNAL FUNCTION tLCum
+LET tUCum = 1 -tLCum(df, t)
+END FUNCTION
+
+EXTERNAL FUNCTION InvtUCum(df, p) 
+REM 自由度dfのt分布に従う確率変数の値がz以上である確率がpとなるz
+DECLARE EXTERNAL FUNCTION tUCum
+DECLARE NUMERIC a,b,z,i
+REM 2分法
+LET a=-64
+LET b=64
+REM 真の値が-64～64の間にないときは正しい値が得られない。
+REM その場合は，上の2数a,bの初期値を変更する。
+FOR i=1 TO 59
+   LET z=(a+b)/2
+   IF tUCum(df, z)<p THEN
+      LET b=z
+   ELSE
+      LET a=z
+   END IF
+NEXT i
+LET InvtUCum=z
+END FUNCTION
+
+
+
+EXTERNAL FUNCTION Chi2LCum(df, chi2) !χ2乗分布の下側累積確率
+REM 自由度dfのχ2乗分布に従う確率変数の値がchi2以下である確率
+DECLARE EXTERNAL FUNCTION Chi2UCum
+LET Chi2LCum= 1 - Chi2UCum(df, chi2)
+END FUNCTION
+
+EXTERNAL FUNCTION Chi2UCum(df, chi2) !χ2乗分布の上側累積確率
+REM 奥村晴彦著 C言語による最新アルゴリズム辞典(技術評論社刊)より(chi2.c)
+DECLARE NUMERIC k
+DECLARE NUMERIC  s, t, chi
+DECLARE EXTERNAL FUNCTION NormalUCum
+IF MOD(df,2)=1 THEN    !/* 自由度が奇数 */
+   LET chi = SQR(chi2)
+   IF df= 1 THEN 
+      LET Chi2UCum = 2 * NormalUCum(chi)
+      EXIT FUNCTION
+   END IF
+   LET t = chi * EXP(-0.5 * chi2) / SQR(2 * PI)
+   LET s = t
+   FOR k = 3 TO df-2 STEP 2
+      LET t = t * chi2 / k
+      LET s = s + t
+   NEXT k
+   LET Chi2UCum = 2 * (NormalUCum(chi) + s)
+ELSE                 !/* 自由度が偶数 */
+   LET t = EXP(-0.5 * chi2)
+   LET s = t
+   FOR k = 2 TO df-2 STEP 2
+      LET t = t * (chi2 / k)
+      LET s = s + t
+   NEXT  k
+   LET Chi2UCum = s
+END IF
+END FUNCTION
+
+EXTERNAL FUNCTION InvChi2UCum(df, p) 
+REM 自由度dfのχ2乗分布に従う確率変数の値がz以上である確率がpとなるz
+DECLARE EXTERNAL FUNCTION Chi2UCum
+DECLARE NUMERIC a,b,z,i
+LET a=0
+LET b=16
+DO WHILE Chi2UCum(df,b)>p 
+   LET a=b
+   LET b=b*2
+LOOP 
+REM 2分法
+FOR i=1 TO 53
+   LET z=(a+b)/2
+   IF Chi2UCum(df,z)<p THEN
+      LET b=z
+   ELSE
+      LET a=z
+   END IF
+NEXT i
+LET InvChi2UCum=z
+END FUNCTION
+
+
+EXTERNAL FUNCTION FUCum(df1, df2, f)  !F分布の上側累積確率
+REM 奥村晴彦著 C言語による最新アルゴリズム辞典(技術評論社刊)より(fdist.c)
+DECLARE NUMERIC i
+DECLARE NUMERIC cos2, sin2, prob, temp
+IF f <= 0 THEN 
+   LET FUCum = 1
+ELSEIF MOD(df1,2)<>0 AND MOD(df2,2)=0 THEN
+   LET FUCum = 1 - FUCum(df2, df1, 1 / f)
+ELSE 
+   LET cos2 = 1 / (1 + df1 * f / df2)
+   LET sin2 = 1 - cos2
+   IF MOD(df1,2) = 0 THEN
+      LET prob = cos2 ^ (df2 / 2.0)
+      LET temp = prob
+      FOR i = 2 TO df1 -2 STEP 2
+         LET temp = temp * ((df2 + i - 2) * sin2 / i)
+         LET prob = prob + temp
+      NEXT i
+      LET FUCum = prob
+   ELSE
+      LET prob = ATN(SQR(df2 / (df1 * f)))
+      LET temp = SQR(sin2 * cos2)
+      FOR i = 3 TO  df1 STEP 2
+         LET prob = prob + temp
+         LET temp = temp * ((i - 1) * sin2 / i)
+      NEXT i
+      LET temp = temp * df1
+      FOR i = 3 TO df2 STEP 2
+         LET prob = prob - temp
+         LET temp = temp * ((df1 + i - 2) * cos2 / i)
+      NEXT i
+      LET FUCum = prob * 2 / PI
+   END IF
+END IF
+END FUNCTION
+
+EXTERNAL FUNCTION FLCum(df1, df2, f)  !F分布の下側累積確率
+DECLARE EXTERNAL FUNCTION FUCum
+IF f <= 0 THEN LET FLCum = 0 ELSE LET FLCum = FUCum(df2, df1, 1 / f)
+END FUNCTION
+
+EXTERNAL FUNCTION InvFUCum(df1, df2, p) 
+REM 自由度df1,df2のF分布に従う確率変数の値がz以上である確率がpとなるz
+DECLARE EXTERNAL FUNCTION FUCum
+DECLARE NUMERIC a,b,z,i
+LET a=1
+LET b=2
+DO WHILE FUCum(df1, df2, b)>p 
+   LET a=b
+   LET b=b*2
+LOOP 
+REM 2分法
+FOR i=1 TO 53
+   LET z=(a+b)/2
+   IF FUCum(df1,df2,z)<p THEN
+      LET b=z
+   ELSE
+      LET a=z
+   END IF
+NEXT i
+LET InvFUCum=z
+END FUNCTION
+
+
+! **********************************************************************
+! ****** Γ(ガンマ)関数，Β(ベータ)関数 ********************************
+! 奥村晴彦著 C言語による最新アルゴリズム辞典(技術評論社刊)より(gamma.c)
+! **********************************************************************
+MODULE GammaLib
+PUBLIC FUNCTION LogGamma
+SHARE NUMERIC LOG_2PI
+SHARE NUMERIC N,B0,B1,B2,B4,B6,B8,B10,B12,B14,B16 
+LET LOG_2PI=1.83787706640934548  !/* $\LOG 2\pi$ */
+LET N = 8
+LET B0 = 1                 !/* 以下はBernoulli数 */
+LET B1 = (-1.0 / 2.0)
+LET B2 = ( 1.0 / 6.0)
+LET B4 = (-1.0 / 30.0)
+LET B6 = ( 1.0 / 42.0)
+LET B8 = (-1.0 / 30.0)
+LET B10 =( 5.0 / 66.0)
+LET B12 =(-691.0 / 2730.0)
+LET B14 =( 7.0 / 6.0)
+LET B16 =(-3617.0 / 510.0)
+EXTERNAL FUNCTION LogGamma(x)  !/* ガンマ関数の対数 */
+   DECLARE NUMERIC v, w
+   LET v = 1
+   DO WHILE x < N
+      LET v = v * x
+      LET x = x+1
+   LOOP
+   LET w = 1 / (x * x)
+   LET LogGamma=((((((((B16 / (16 * 15))  * w + (B14 / (14 * 13))) * w  &
+&                    + (B12 / (12 * 11))) * w + (B10 / (10 *  9))) * w  &
+&                    + (B8  / ( 8 *  7))) * w + (B6  / ( 6 *  5))) * w  &
+&                    + (B4  / ( 4 *  3))) * w + (B2  / ( 2 *  1))) / x  &
+&                    + 0.5 * LOG_2PI - LOG(v) - x + (x - 0.5) * LOG(x)  
+END FUNCTION
+END MODULE
+
+EXTERNAL FUNCTION Gamma(x)  !/* ガンマ関数 */
+DECLARE EXTERNAL FUNCTION GammaLib.LogGamma
+IF x < 0 THEN 
+   LET Gamma= PI / (SIN(PI * x) * EXP(LogGamma(1 - x)))
+ELSE
+   LET Gamma= EXP(LogGamma(x))
+END IF 
+END FUNCTION
+
+EXTERNAL FUNCTION Beta(x, y)  !/* ベータ関数 */
+DECLARE EXTERNAL FUNCTION GammaLib.LogGamma
+LET Beta= EXP(loggamma(x) + loggamma(y) - loggamma(x + y))
+END FUNCTION

@@ -1,0 +1,16 @@
+1   REM センター試験1998数学A追試
+2   REM Microsoft BASIC互換モードで実行してください 
+100 INPUT A
+110 B=1
+120 FOR C=3 TO A
+130    D=2
+140    E=C-D*INT(C/D)
+150    IF E=0 THEN GOTO 200
+160    D=D+1
+170    IF D<C THEN GOTO 140
+180    B=B+1
+190    PRINT "C=";C
+200 NEXT C
+210 PRINT "B=";B
+220 END
+    

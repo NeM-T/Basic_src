@@ -1,0 +1,149 @@
+" 代入・入出力",,0
+"LET !=",代入,110
+"PRINT ",出力,120
+"PRINT USING "" !"": ",書式指定,122
+"INPUT ",入力,130
+"INPUT PROMPT ""! "": ",指定した文字列を表示して入力,131
+"LINE INPUT ",文字列変数に行全体を入力する,132
+"LINE INPUT PROMPT ""! "": ",,132
+"CHARACTER INPUT ",単文字入力,135
+"DATA ",READ文で読むためのデータ,140
+"READ ",DATA文から変数に読み込む,140
+"READ IF MISSING THEN EXIT DO: ",データ列が尽きていたらDO～LOOPを抜ける,141
+"RESTORE ",指定行からデータを読むようにする,140
+" 制御",,170
+"IF ! THEN ",単純if文,182
+"IF ! THEN～END IF",if区,180
+"IF ! THEN～ELSE～END IF",if区,180
+"IF ! THEN～ELSEIF THEN～ELSE～END IF",if区,181
+"ELSEIF ! THEN ","ELSEIF はいくつでも書けます",181
+"SELECT CASE !～CASE ～CASE ～CASE ELSE～END SELECT",指定された値によって分岐,190
+"CASE ",,190
+"FOR != TO ～NEXT ",変数を用いる繰り返し,200
+"FOR != TO STEP ～NEXT ",増分を指定した繰り返し,200
+"EXIT FOR",for区を抜ける,200
+"DO!～LOOP ",繰り返し,210
+"EXIT DO",繰り返しの実行を打ち切る,210
+"DO WHILE !～LOOP ",条件が成立する間繰り返す,210
+"DO UNTIL !～LOOP ",条件が成立すると繰り返しを抜ける,210
+"DO!～LOOP WHILE",繰り返し部の最後で条件を調べる,210
+"DO!～LOOP UNTIL",繰り返し部の最後で条件を調べる,210
+RANDOMIZE,乱数系列の初期化,440
+STOP,プログラムの実行を打ち切る,215
+" 宣言文",有効範囲はプログラム単位,900
+REM,"REMark 注釈",166
+"OPTION ANGLE DEGREES",角の大きさの単位を度にする,270
+"OPTION ARITHMETIC NATIVE",数値を2進で処理する,271
+" 配列・行列演算",,150
+"DIM !() ",配列の宣言,150
+"DIM !( TO ) ",下限と上限を指定した配列宣言,150
+"OPTION BASE 0",指定しないときの下限を0にする,150
+"MAT !=",配列代入文,160
+"MAT !=ZER",零行列,160
+"MAT !=IDN",単位行列,160
+"MAT !=INV( )",逆行列,160
+"MAT !=TRN( )",転置行列,160
+"MAT !=CROSS( , )",外積,160
+"MAT PRINT ",配列要素を表示する,163
+"MAT PRINT USING !: ",配列要素を書式を用いて表示する,123
+"MAT INPUT ",配列に入力する,162
+"MAT INPUT !(?)",入力された個数の配列を作る,162
+"MAT READ ",DATA文から配列に読み込む,161
+" 手続き定義",,250
+"DEF !()=",関数定義,240
+"DECLARE EXTERNAL FUNCTION ",外部関数を用いることの宣言,255
+"EXTERNAL FUNCTION !()～END FUNCTION",外部関数定義,255
+"FUNCTION !()～END FUNCTION",内部関数定義,250
+"EXIT FUNCTION",関数の実行を打ち切る,269
+"EXTERNAL SUB !()～END SUB",外部副プログラム定義,265
+"SUB !()～END SUB",内部副プログラム定義,260
+"EXIT SUB",,269
+"CALL !()",副プログラムを呼び出す,260
+" 例外処理",実行時エラーを処理する,220
+"WHEN EXCEPTION IN!～USE ～END WHEN",ｴﾗｰ発生時の処理をUSE行以下に書く,221
+RETRY,ｴﾗｰ行を再実行する,221
+CONTINUE,ｴﾗｰ行の次の行から再実行する,221
+"CAUSE EXCEPTION ",指定番号の例外を発生する,224
+"HANDLER !～END HANDLER",例外処理区を内部手続きとして書く,222
+"WHEN EXCEPTION USE !～END WHEN",HANDLER区を指定する例外処理,222
+" 図形",グラフィックス,300
+CLEAR,画面消去,301
+"SET WINDOW !,,,","座標系の設定 SET WINDOW 左端,右端,下端,上端",310
+"PLOT POINTS: !,",指定座標にマークを描く,360
+"PLOT LINES: !, ;",線分を描く,370
+"PLOT AREA: !,;  ,; , ",多角形を描き内部を塗りつぶす,380
+"PLOT TEXT,AT  !, : ",指定座標に文字を描く,390
+"PLOT TEXT,AT  !, ,USING ""###"": ",書式を用いて指定座標に計算結果を描く,390
+"MAT PLOT POINTS: !, ",座標を配列で指定する,327
+"MAT PLOT LINES: !, ",座標を配列で指定する,327
+"MAT PLOT AREA: !, ",座標を配列で指定する,327
+"MAT PLOT CELLS,IN  !, ; , :",2次元配列を指定して長方形を分割し塗りつぶす,328
+"SET COLOR MIX(!) ,,"," SET COLOR MIX(色指標) 赤,緑,青",350
+"SET POINT COLOR ","0白 1黒 2青 3緑 4赤 5水 6黄 7赤紫",360
+"SET POINT STYLE "," 1 ･   2 +    3 *   4○   5×",360
+"SET LINE COLOR ","0白 1黒 2青 3緑 4赤 5水 6黄 7赤紫",370
+"SET LINE STYLE ","1 実線  2 破線  3 点線  4 一点鎖線",370
+"SET LINE WIDTH ","基準の太さを１とする整数で指定する",370
+"SET AREA COLOR ","0白 1黒 2青 3緑 4赤 5水 6黄 7赤紫",380
+"SET AREA STYLE ""HATCH""","多角形をハッチで描く",380
+"SET AREA STYLE INDEX ","1横線 2縦線 3斜135° 4斜45° 5縦横 6斜×",380
+"SET TEXT COLOR ","0白 1黒 2青 3緑 4赤 5水 6黄 7赤紫",390
+"SET TEXT JUSTIFY !,",文字出力位置の基準点を設定する,313
+"SET TEXT ANGLE ",文字出力の向きを設定する,313
+"SET TEXT HEIGHT ",文字の高さを問題座標で指定する,313
+"SET TEXT FONT !,",フォント名とポイント数を指定する,313
+"SET TEXT BACKGROUND ""OPAQUE""", 文字の背景を背景色で塗る,313
+"ASK WINDOW !,,,",現在設定されている問題座標系を取得する,310
+"ASK PIXEL VALUE (!,)",指定した点の色指標を取得する,399
+"ASK PIXEL ARRAY (!,)",色指標を配列に取得する,399
+"ASK PIXEL SIZE (!,: ,) ,",指定範囲のピクセル数を取得する,399
+"ASK TEXT WIDTH(!)  ",問題座標系における文字列の横幅を取得する,313
+"EXTERNAL PICTURE !()～END PICTURE",外部絵定義,341
+"PICTURE !()～END PICTURE",内部絵定義,342
+"EXIT PICTURE",絵の実行を止めて戻る,269
+"DRAW !()",絵を呼び出す,340
+"DRAW !() WITH ",変形を伴う絵呼び出し,340
+"DRAW AXES",軸を描く,349
+"DRAW AXES(!,)",目盛り間隔を指定して軸を描く,349
+"DRAW GRID",格子を描く,349
+"DRAW GRID(!,)",目盛り間隔を指定して格子を描く,349
+"GET POINT: !,",マウスでクリックした点の座標を取得する,330
+"MAT GET POINT: !,",配列に点の座標を取得する,330
+"MOUSE POLL !,,,",現在のマウス座標を取得,810
+"SET VIEWPORT !,,,",指定された矩形を描画対象にする,314
+"SET BITMAP SIZE !,",描画領域のピクセル数を設定する,812
+"GLOAD ""!""",Bitmapファイルの読込,813
+"GSAVE ""!""",Bitmapファイルの保存,813
+" ファイル",テキストファイル,500
+"OPEN #!: NAME """"",ファイルを開く,510
+"OPEN #!: NAME """" ,ACCESS OUTPUT",追記書き出し専用,510
+"OPEN #!: NAME """" ,ACCESS INPIT",入力専用,510
+"CLOSE #",ファイルを閉じる,550
+"INPUT #!: ",,520
+"LINE INPUT #!: ",,520
+"INPUT #!,IF MISSING THEN EXIT DO: ",,520
+"LINE INPUT #!,IF MISSING THEN EXIT DO: ",,520
+"SET #!: POINTER BEGIN",,540
+"SET #!: POINTER END",,540
+"ERASE #",ファイル内容の消去,530
+"PRINT #!: ",,520
+"OPEN #!: NAME """" ,RECTYPE INTERNAL",内部形式ファイル,804
+"WRITE #!: ",内部形式ファイルに書き出す,805
+"READ #!: ",内部形式ファイルから読む,805
+" 実時間",,0
+"WAIT DELAY ",指定秒数待つ,800
+" デバッグ",,230
+"DEBUG ON",BREAK文，TRACE文を有効にする,230
+"DEBUG OFF",BREAK文，TRACE文を無効にする,230
+BREAK,実行を中断する,230
+"TRACE ON",追跡を開始する,230
+"TRACE OFF",追跡を終える,230
+" モジュール",,280
+"MODULE !()～END MODULE",モジュール定義,280
+"PUBLIC NUMERIC",モジュール外から参照可能な数値変数の宣言,280
+"PUBLIC STRING",モジュール外から参照可能な文字列変数の宣言,280
+"PUBLIC FUNCTION",モジュール外から参照可能な外部関数の宣言,280
+"SHARE NUMERIC",モジュール内で共用する数値変数の宣言,280
+"SHARE STRING",モジュール内で共用する文字列変数の宣言,280
+"DECLARE EXTERNAL NUMERIC ",外部の数値変数を共用する宣言,280
+"DECLARE EXTERNAL STRING ",外部の文字列変数を共用する宣言,280

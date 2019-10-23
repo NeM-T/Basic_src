@@ -1,0 +1,4 @@
+LET A,B=4
+PRINT A,B
+END
+

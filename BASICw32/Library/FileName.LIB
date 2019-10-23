@@ -1,0 +1,85 @@
+EXTERNAL FUNCTION GetSaveFileName$( disp$, ext$, iniDir$)
+REM 「名前をつけて保存」ダイアログを表示してファイル名を取得する。
+REM 第1引数には，ファイルの種類を表す言葉を指定する。空文字列を指定すると"テキスト"を指定したものとみなす
+REM 第2引数には，既定の拡張子(例"TXT")を指定する。拡張子にはピリオドを含めない。空文字列を指定すると，"TXT"を指定したものとみなす。
+REM 第3引数には，初期表示ディレクトリを指定する。空文字列を指定した場合の動作はOS依存。
+DECLARE EXTERNAL FUNCTION GetFileName$
+  LET GetSaveFileName$=GetFileName$("SAVE", disp$, ext$, iniDir$)
+END FUNCTION
+
+EXTERNAL FUNCTION GetOpenFileName$( disp$, ext$, iniDir$)
+REM 「ファイルを開く」ダイアログを表示してファイル名を取得する。
+DECLARE EXTERNAL FUNCTION GetFileName$
+  LET GetOpenFileName$=GetFileName$("OPEN", disp$, ext$, iniDir$)
+END FUNCTION
+
+EXTERNAL FUNCTION GetFileName$(spc$, disp$, ext$, iniDir$)
+DECLARE EXTERNAL FUNCTION DWORD$, WORD$, VarPtr
+DECLARE FUNCTION  GetOpenFileNameA, GetSaveFileNameA
+DECLARE NUMERIC  hwndOwner, hInstance, lpstrFilter,lpstrCustomFilter, nMaxCustFilter
+DECLARE NUMERIC  nFilterIndex, lpstrFile, nMaxFile, lpstrFileTitle, nMaxFileTitle 
+DECLARE NUMERIC  lpstrInitialDir, lpstrTitle, Flags, nFileOffset,  nFileExtension 
+DECLARE NUMERIC  lpstrDefExt, lCustData, lpfnHook, lpTemplateName 
+DECLARE STRING Buff$,p$,Filter$
+IF disp$="" THEN LET disp$="テキスト"
+IF ext$="" THEN LET ext$="TXT"
+LET Filter$=disp$ & CHR$(0) & "*." & ext$ & CHR$(0)
+LET Buff$=REPEAT$(CHR$(0),256)
+LET hwndOwner=0
+LET hInstance=0 
+LET lpstrFilter=VarPtr(Filter$)
+LET lpstrCustomFilter=0 
+LET nMaxCustFilter=0 
+LET nFilterIndex=0 
+LET lpstrFile=VarPtr(Buff$) 
+LET nMaxFile=256 
+LET lpstrFileTitle=0 
+LET nMaxFileTitle=0 
+LET lpstrInitialDir=VarPtr(iniDir$) 
+LET lpstrTitle=0 
+LET Flags=2+4+2^16   ! 2 上書き確認あり，4 ReadOnlyチェックボックス表示しない， 2^16 ファイルを作らない
+LET nFileOffset=0 
+LET nFileExtension=0 
+LET lpstrDefExt=VarPtr(ext$) 
+LET lCustData=0 
+LET lpfnHook=0 
+LET lpTemplateName=0 
+LET p$=DWORD$(76) 
+LET p$=p$ & DWORD$(hwndOwner)
+LET p$=p$ & DWORD$(HInstance)
+LET p$=p$ & DWORD$(lpstrFilter)
+LET p$=p$ & DWORD$(lpstrCustomFilter) 
+LET p$=p$ & DWORD$(nMaxCustFilter) 
+LET p$=p$ & DWORD$(nFilterIndex) 
+LET p$=p$ & DWORD$(lpstrFile) 
+LET p$=p$ & DWORD$(nMaxFile) 
+LET p$=p$ & DWORD$(lpstrFileTitle) 
+LET p$=p$ & DWORD$(nMaxFileTitle) 
+LET p$=p$ & DWORD$(lpstrInitialDir) 
+LET p$=p$ & DWORD$(lpstrTitle) 
+LET p$=p$ & DWORD$(Flags) 
+LET p$=p$ & WORD$(nFileOffset) 
+LET p$=p$ & WORD$(nFileExtension) 
+LET p$=p$ & DWORD$(lpstrDefExt) 
+LET p$=p$ & DWORD$(lCustData) 
+LET p$=p$ & DWORD$(lpfnHook) 
+LET p$=p$ & DWORD$(lpTemplateName) 
+SELECT CASE spc$
+CASE "OPEN"
+IF GetOpenFileNameA(p$)<>0 THEN
+   LET GetFileName$=Buff$(1:MAX(256,POS(Buff$,CHR$(0)))) 
+END IF
+CASE "SAVE"
+IF GetSaveFileNameA(p$)<>0 THEN
+   LET GetFileName$=Buff$(1:MAX(256,POS(Buff$,CHR$(0)))) 
+END IF
+END SELECT
+FUNCTION GetOpenFileNameA(p$)
+   ASSIGN "COMDLG32.DLL","GetOpenFileNameA"
+END FUNCTION
+FUNCTION GetSaveFileNameA(p$)
+   ASSIGN "COMDLG32.DLL","GetSaveFileNameA"
+END FUNCTION
+END FUNCTION
+
+MERGE "APISUP1.LIB"

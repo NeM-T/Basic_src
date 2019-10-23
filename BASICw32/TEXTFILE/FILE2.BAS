@@ -1,0 +1,17 @@
+LET F$="a:abcd.txt"
+OPEN #1:NAME F$
+ERASE #1
+FOR i=1 TO 10
+   PRINT #1:i,",",SQR(i)
+NEXT i
+CLOSE #1
+OPEN #2:NAME F$
+DO 
+   INPUT #2,IF MISSING THEN EXIT DO:a,b
+   PRINT a,b
+LOOP
+CLOSE #2
+END
+
+
+

@@ -1,0 +1,8 @@
+10 ! n人の人の中に誕生日が同じ人が含まれる確率
+20 INPUT PROMPT "人数": N
+30 LET T=1
+40 FOR I=1 TO N
+50    LET T=T*(366-I)/365
+60 NEXT I
+70 PRINT 1-T
+80 END

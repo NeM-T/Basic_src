@@ -1,0 +1,10 @@
+10 INPUT a,b
+20 DO 
+30    LET r=MOD(a,b)
+40    IF r=0 THEN EXIT DO
+50    LET a=b
+60    LET b=r
+70 LOOP
+80 PRINT b
+90 END
+

@@ -1,0 +1,11 @@
+! MAXNUM‚ÍAˆ—‚µ‚¤‚éÅ‘å‚Ì³”
+PRINT MAXNUM
+END
+
+
+
+
+
+
+
+

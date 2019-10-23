@@ -1,0 +1,13 @@
+! 1000桁モードで利用する指数関数
+EXTERNAL FUNCTION EXP(x)
+FUNCTION s(y,n)
+   LET t=y*x/n
+   IF ABS(t)<=EPS(0) THEN
+      LET s=y+t
+   ELSE
+      LET s=y+s(t,n+1)
+   END IF
+END FUNCTION
+LET EXP=s(1,1)
+END FUNCTION
+

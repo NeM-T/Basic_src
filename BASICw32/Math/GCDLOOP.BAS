@@ -1,0 +1,10 @@
+100 REM ŒÝœ–@‚É‚æ‚èC“ü—Í‚³‚ê‚½2”‚ÌÅ‘åŒö–ñ”‚ð‹‚ß‚é
+110 INPUT a,b
+120 DO
+130    LET r=MOD(a,b)
+140    IF r=0 THEN EXIT DO
+150    LET a=b
+160    LET b=r
+170 LOOP
+180 PRINT b
+190 END

@@ -1,0 +1,7 @@
+10 INPUT n
+20 LET a=5
+30 FOR k=2 TO n
+40    LET a=3*a+2
+50 NEXT k
+60 PRINT a
+70 END

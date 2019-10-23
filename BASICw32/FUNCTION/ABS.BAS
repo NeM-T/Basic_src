@@ -1,0 +1,17 @@
+! ABS(x) ‚ÍAx‚Ìâ‘Î’l‚ð•\‚·
+DEF f(x)=ABS(x)
+SET WINDOW -4,4,-4,4
+DRAW grid
+FOR x=-4 TO 4 STEP 0.01
+   PLOT x,f(x);
+NEXT x
+END
+
+
+
+
+
+
+
+
+

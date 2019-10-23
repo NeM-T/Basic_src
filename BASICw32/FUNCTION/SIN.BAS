@@ -1,0 +1,15 @@
+! SIN(x) xの正弦.
+! OPTION ANGLE DEGREES を書いたとき、xの単位は度になる。
+OPTION ANGLE DEGREES
+SET WINDOW -180,720,-8,8
+DRAW grid(90,1)
+FOR x=-180 TO 720
+   PLOT x,SIN(x)
+NEXT x
+END
+
+
+
+
+
+

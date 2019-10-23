@@ -1,0 +1,16 @@
+! SEC(x)ÇÕÅAxÇÃê≥äÑÇï\Ç∑ÅBSEC(x)=1/COS(x)
+OPTION ANGLE DEGREES
+SET WINDOW -100,500,-5,5
+DRAW grid(90,1)
+FOR x=-100 TO 500 
+   WHEN EXCEPTION IN  
+      PLOT x,SEC(x);
+   USE
+      PLOT
+   END WHEN
+NEXT x
+END
+
+
+
+

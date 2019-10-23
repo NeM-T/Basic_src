@@ -1,0 +1,24 @@
+DECLARE EXTERNAL PICTURE circle0
+SET WINDOW -1,9,-5,5
+FOR s=-2 TO 10 STEP PI/60
+   SET DRAW MODE HIDDEN    ! •`‰æ“r’†‚ð‰æ–Ê‚É”½‰f‚³‚¹‚È‚¢
+   CLEAR
+   DRAW AXES 
+   DRAW circle0 WITH ROTATE(-s)*SHIFT(s,1)
+   SET LINE COLOR 2
+   FOR t=-2 TO s STEP PI/60
+      LET x=t-SIN(t)
+      LET y=1-COS(t)
+      PLOT LINES:x,y;
+   NEXT t
+   SET DRAW MODE EXPLICIT  ! •`‰æŒ‹‰Ê‚ð‰æ–Ê‚É”½‰f‚³‚¹‚é
+   WAIT DELAY 0.02         ! 0.02•bC‹xŽ~
+NEXT s
+END
+
+EXTERNAL PICTURE circle0
+SET LINE COLOR 5
+DRAW circle
+SET AREA COLOR 2
+DRAW disk WITH SCALE(0.05)*SHIFT(0,-1)     ! ‚¿‚å‚Á‚Æ‘å‚«–Ú‚Ì“_‚ð‚©‚­
+END PICTURE

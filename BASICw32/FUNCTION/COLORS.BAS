@@ -1,0 +1,7 @@
+SET WINDOW 0,16,0,16
+FOR x=0 TO 15
+   SET TEXT COLOR x
+   PLOT TEXT,AT x,0,USING "###": x
+NEXT x
+END
+

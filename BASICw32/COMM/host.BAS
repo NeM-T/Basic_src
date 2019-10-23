@@ -1,0 +1,10 @@
+! 1sŽóM‚·‚é‚²‚Æ‚É"Ok"‚ð•ÔM‚µ‚Ü‚·
+OPEN #1: NAME "com1"
+SET #1: ENDOFLINE CHR$(13)
+DO
+   LINE INPUT #1:s$
+   PRINT s$
+   PRINT #1:"Ok"
+LOOP
+END
+

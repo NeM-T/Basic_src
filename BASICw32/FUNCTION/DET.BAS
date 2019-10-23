@@ -1,0 +1,13 @@
+! çsóÒéÆ(DETERMINANT)
+DIM A(3,3),B(3,3)
+MAT READ A
+DATA  2,1,2
+DATA  4,3,4
+DATA  1,5,6
+PRINT DET(A)
+END
+
+
+
+
+

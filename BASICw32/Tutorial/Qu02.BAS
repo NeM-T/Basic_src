@@ -1,0 +1,7 @@
+10 INPUT n
+20 FOR k=0 TO n STEP 2
+30   PRINT k
+40 NEXT k
+50 END
+
+

@@ -1,0 +1,6 @@
+! íPà çsóÒ
+DIM A(3,3)
+MAT A=IDN
+MAT PRINT A
+END
+

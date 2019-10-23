@@ -1,0 +1,18 @@
+1  REM センター試験1997数学A追試
+2  REM Microsoft BASIC互換モードで実行してください 
+10 A=0
+20 INPUT "N= ";N
+30 FOR B=1 TO N
+40 FOR C=1 TO N
+50 IF B*B+C*C>N*N THEN GOTO 80
+60 A=A+1
+70 PRINT "C= ";C
+80 NEXT C
+90 A=A+1
+100 PRINT "B= ";B
+110 PRINT "A= ";A
+120 NEXT B
+130 D=4*A/(N*N)
+140 PRINT "PI= ";D
+150 END
+

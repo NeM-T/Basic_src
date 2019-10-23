@@ -1,0 +1,9 @@
+10 DEF f(t)=SIN(2*t)
+20 SET WINDOW -1,1,-1,1
+30 DRAW grid
+40 FOR t=0 TO 2*PI STEP PI/360
+50 PLOT LINES: f(t)*COS(t), f(t)*SIN(t);
+60 NEXT t
+70 END
+
+

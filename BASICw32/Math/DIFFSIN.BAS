@@ -1,0 +1,11 @@
+100 ! ³Œ·ŠÖ”‚Ì“±ŠÖ”‚ð”’l”÷•ª‚É‚æ‚Á‚Ä‹‚ß‚é(„‘ª‚·‚é)B
+110 DEF f(x)=sin(x)
+120 LET h=0.00001
+130 DEF g(x)=(f(x+h)-f(x))/h
+140 SET WINDOW -2,6,-4,4
+150 DRAW grid
+160 SET POINT STYLE 1
+170 FOR x=-2 TO 6 STEP 0.02
+180    PLOT POINTS:x,g(x)
+190 NEXT x
+200 END

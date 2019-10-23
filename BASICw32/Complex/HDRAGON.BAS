@@ -1,0 +1,19 @@
+REM Heighway's dragon
+OPTION ARITHMETIC COMPLEX
+SET WINDOW -1/2,3/2,-1,1
+LET i=SQR(-1)
+LET alpha=(1+i)/2
+PICTURE D(n)
+   IF n=0 THEN 
+      PLOT LINES:0,0;  1,0
+   ELSE
+      DRAW D(n-1) WITH SCALE(alpha)
+      DRAW D(n-1) WITH SCALE(CONJ(-alpha))*SHIFT(1)
+   END IF
+END PICTURE
+FOR n=0 TO 18
+   CLEAR
+   DRAW D(n)
+   WAIT DELAY 1
+NEXT n
+END

@@ -1,0 +1,9 @@
+10 INPUT n
+20 LET S=0
+30 FOR k=1 TO n
+40    LET S=S+k^2
+50 NEXT k
+60 PRINT S
+70 END
+   
+   

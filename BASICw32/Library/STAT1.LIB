@@ -1,0 +1,68 @@
+! 1次元配列用統計ライブラリ
+!
+! 平均
+EXTERNAL FUNCTION mean(a())
+DECLARE NUMERIC i,t
+LET t=0
+FOR i=LBOUND(a) TO UBOUND(a)
+   LET t=t+a(i)
+NEXT i
+LET mean=t/SIZE(a)
+END FUNCTION
+!
+! 分散 
+EXTERNAL FUNCTION variance(a())
+DECLARE EXTERNAL FUNCTION mean
+DECLARE NUMERIC i,s,m
+LET m=mean(a)
+LET s=0
+FOR i=LBOUND(a) TO UBOUND(a)
+   LET s=s+(a(i)-m)^2
+NEXT i
+LET variance=s/SIZE(a)
+END FUNCTION
+!
+! 標準偏差
+EXTERNAL FUNCTION sd(a())
+DECLARE EXTERNAL FUNCTION variance
+LET sd=SQR(variance(a))
+END FUNCTION
+! 
+! 最小値
+EXTERNAL FUNCTION mini(a())
+DECLARE NUMERIC i,m
+LET m=a(LBOUND(a))
+FOR i=LBOUND(a)+1 TO UBOUND(a)
+   IF a(i)<m THEN LET m=a(i)
+NEXT i
+LET mini=m
+END FUNCTION
+!
+! 最大値
+EXTERNAL FUNCTION maxi(a())
+DECLARE NUMERIC i,m
+LET m=a(LBOUND(a))
+FOR i=LBOUND(a)+1 TO UBOUND(a)
+   IF a(i)>m THEN LET m=a(i)
+NEXT i
+LET maxi=m
+END FUNCTION
+! 
+! ヒストグラム
+EXTERNAL SUB histogram(a(),mi,ma,w)
+DECLARE NUMERIC  f(0 TO 200)
+DECLARE EXTERNAL FUNCTION mini,maxi
+MAT f=ZER
+DECLARE NUMERIC i,k,x
+FOR k=LBOUND(a) TO UBOUND(a)
+   LET i=INT((a(k)-mi)/w)
+   IF 0<=i AND i<=200 THEN LET f(i)=f(i)+1
+NEXT k
+SET AREA STYLE "HOLLOW"
+SET WINDOW mi,ma,-0.02*SIZE(a), SIZE(a)
+DRAW axes(w,10^(CEIL(LOG10(SIZE(a)))-1))
+FOR i=0 TO (ma-mi)/w 
+   LET x=i*w+mi
+   PLOT AREA: x,0; x+w,0; x+w,f(i); x,f(i)
+NEXT i
+END SUB

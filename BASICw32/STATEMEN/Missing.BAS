@@ -1,0 +1,9 @@
+DO
+   READ IF MISSING THEN EXIT DO: n$,m
+   PRINT n$,m
+LOOP
+DATA Sato,   178
+DATA Tanaka, 165
+DATA Yamada, 171
+END
+

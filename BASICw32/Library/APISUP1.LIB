@@ -1,0 +1,54 @@
+EXTERNAL FUNCTION DWORD$(n)
+OPTION CHARACTER byte
+DECLARE NUMERIC r
+DECLARE STRING s$
+LET r=MOD(n,2^8) 
+LET s$=CHR$(r) 
+LET n=(n-r)/2^8 
+LET r=MOD(n,2^8) 
+LET s$=s$ & CHR$(r) 
+LET n=(n-r)/2^8 
+LET r=MOD(n,2^8) 
+LET s$=s$ & CHR$(r) 
+LET n=(n-r)/2^8 
+LET r=MOD(n,2^8) 
+LET DWORD$=s$ & CHR$(r) 
+END FUNCTION
+
+EXTERNAL FUNCTION WORD$(n)
+OPTION CHARACTER byte
+DECLARE NUMERIC r
+DECLARE STRING s$
+LET r=MOD(n,2^8) 
+LET s$=CHR$(r) 
+LET n=(n-r)/2^8 
+LET r=MOD(n,2^8) 
+LET WORD$=s$ & CHR$(r) 
+END FUNCTION
+
+EXTERNAL FUNCTION VarPtr(s$) 
+FUNCTION CharPrev(s$,t$)
+   ASSIGN "user32.dll","CharPrevA"
+END FUNCTION
+LET VarPtr=CharPrev(s$,s$)
+END FUNCTION
+
+EXTERNAL FUNCTION int32(s$,p)
+OPTION CHARACTER byte
+DECLARE NUMERIC n,i
+LET n=0
+FOR i=1 TO 4
+   LET n=n+256^(i-1)*ORD(s$(p+i:p+i))
+NEXT i
+IF n<2^31 THEN LET int32=n ELSE LET int32=n-2^32
+END FUNCTION
+
+EXTERNAL FUNCTION int16(s$,p)
+OPTION CHARACTER byte
+DECLARE NUMERIC n,i
+LET n=0
+FOR i=1 TO 2
+   LET n=n+256^(i-1)*ORD(s$(p+i:p+i))
+NEXT i
+IF n<2^15 THEN LET int16=n ELSE LET int16=n-2^16
+END FUNCTION

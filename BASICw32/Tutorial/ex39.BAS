@@ -1,0 +1,11 @@
+100 DIM s(2 TO 1000)
+110 MAT s=ZER
+120 FOR n=2 TO 1000
+130    IF s(n)=0 THEN
+140       PRINT n
+150       FOR  k=n^2 TO 1000 STEP n
+160          LET s(k)=1
+170       NEXT k 
+180    END IF
+190 NEXT n
+200 END

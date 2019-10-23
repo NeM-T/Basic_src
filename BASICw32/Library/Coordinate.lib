@@ -1,0 +1,33 @@
+!
+EXTERNAL FUNCTION PIXELX(x)
+OPTION ARITHMETIC NATIVE
+DECLARE NUMERIC left,right,bottom,top,px,py
+ASK WINDOW left,right,bottom,top
+ASK PIXEL SIZE (left,bottom; right,top) px, py
+LET PIXELX=ROUND((px-1)*(x-left)/(right-left),0)
+END FUNCTION
+!
+EXTERNAL FUNCTION PIXELY(y)
+OPTION ARITHMETIC NATIVE
+DECLARE NUMERIC left,right,bottom,top,px,py
+ASK WINDOW left,right,bottom,top
+ASK PIXEL SIZE (left,bottom; right,top) px, py
+LET PIXELY=ROUND((py-1)*(y-bottom)/(top-bottom),0)
+END FUNCTION
+!
+EXTERNAL FUNCTION PROBLEMX(x)
+OPTION ARITHMETIC NATIVE
+DECLARE NUMERIC left,right,bottom,top,px,py
+ASK WINDOW left,right,bottom,top
+ASK PIXEL SIZE (left,bottom; right,top) px, py
+LET PROBLEMX=(right-left)*x/(px-1)+left
+END FUNCTION
+!
+EXTERNAL FUNCTION PROBLEMY(y)
+OPTION ARITHMETIC NATIVE
+DECLARE NUMERIC left,right,bottom,top,px,py
+ASK WINDOW left,right,bottom,top
+ASK PIXEL SIZE (left,bottom; right,top) px, py
+LET PROBLEMY=(top-bottom)*y/(py-1)+bottom
+END FUNCTION
+

@@ -1,0 +1,12 @@
+100 INPUT a,b,c
+110 LET D=b^2-4*a*c
+120 IF D>0 THEN
+130    PRINT (-b-SQR(D))/(2*a), (-b+SQR(D))/(2*a)
+140 ELSEIF D=0 THEN
+150    PRINT -b/(2*a)
+160 ELSE
+170    PRINT "‰ð‚È‚µ"
+180 END IF
+190 END
+
+

@@ -1,0 +1,10 @@
+! ì]íuçsóÒ
+DIM A(2,3),b(3,2)
+DATA 1,2,3
+DATA 4,5,6
+MAT READ A
+MAT B=TRN(A)
+MAT PRINT B
+END
+
+

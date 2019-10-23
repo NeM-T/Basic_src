@@ -1,0 +1,19 @@
+! —”‚ð—p‚¢‚½ŽÀŒ±
+! 10ŒÂ‚Ì‚³‚¢‚±‚ë‚Ì–Ú‚Ì”‚Ì˜a‚Ì•ª•z
+DIM A(10 TO 60)
+MAT A=ZER
+LET s=0
+SET WINDOW 10,60,0,8000
+RANDOMIZE
+FOR m=1 TO 100000
+   LET t=0
+   FOR i=1 TO 10
+      LET t=t+INT(1+6*RND)
+   NEXT i
+   LET A(t)=A(t)+1
+   PLOT POINTS:t,A(t)
+NEXT m
+END
+
+
+

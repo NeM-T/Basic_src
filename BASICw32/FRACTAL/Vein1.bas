@@ -1,0 +1,19 @@
+PICTURE vein(n)
+   IF n=0 THEN
+      PLOT AREA: 0,0; 1,0; 1/2,1/2/SQR(3)
+   ELSE
+      SET AREA COLOR 2
+      DRAW vein(n-1) WITH SCALE(1,-1)*SCALE(r)*ROTATE(alfa)
+      SET AREA COLOR 3
+      DRAW vein(n-1) WITH SHIFT(-1,0)*SCALE(1,-1)*SCALE(2/3)*SHIFT(1,0)
+   END IF
+END PICTURE
+LET r=1/SQR(3)
+LET alfa=ANGLE(1,1/SQR(3))
+SET WINDOW 0,1,-1/2,1/2
+FOR n=1 TO 12
+   CLEAR
+   DRAW vein(n)
+   WAIT DELAY 1
+NEXT n
+END

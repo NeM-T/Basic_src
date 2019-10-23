@@ -1,0 +1,13 @@
+100 DIM m(0 TO 10)
+110 MAT m=ZER
+120 DO
+130    INPUT n
+140    IF n<0 THEN EXIT DO  
+150    LET i=INT(n/10)
+160    LET m(i)=m(i)+1
+170 LOOP
+180 FOR i=0 TO 10
+190    PRINT i*10;"`";i*10+9,m(i)
+200 NEXT i   
+210 END
+

@@ -1,0 +1,6 @@
+OPTION ARITHMETIC COMPLEX
+! COMPLEX(x,y)は，複素数 x+yi を表す。（iは虚数単位）
+LET i=COMPLEX(0,1)
+PRINT i^2
+END
+

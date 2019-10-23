@@ -1,0 +1,28 @@
+REM 扇形
+REM 外部絵定義に定義されたsectorを変形していろいろな扇形を描く。
+OPTION ANGLE DEGREES
+SET WINDOW-2,2,-2,2
+DRAW grid
+FOR i=1 TO 6
+   SET AREA COLOR i
+   DRAW sector (15*i) WITH ROTATE(90-15*i*(i+1)/2)
+NEXT i
+SET AREA COLOR 1
+SET AREA STYLE "HOLLOW"
+DRAW sector(45) WITH ROTATE(90)*SCALE(1.01)*SHIFT(0.2*COS(117.5),0.2*SIN(117.5))
+END
+
+EXTERNAL PICTURE sector(t)
+! 0°からt°の間の弧に対応する単位円の一部である扇形を描く。
+! tは1～359の範囲の整数を指定する。
+OPTION ANGLE DEGREES
+DIM A(0 TO 360,2)
+FOR i=0 TO t
+   LET A(i,1)=COS(i)
+   LET A(i,2)=SIN(i)
+NEXT i
+LET A(t+1,1)=0
+LET A(t+1,2)=0
+MAT PLOT AREA, LIMIT t+2: A
+END PICTURE
+

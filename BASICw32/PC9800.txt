@@ -1,0 +1,25 @@
+NEC PC9800版Windows95での動作について
+
+  次のプログラムが正常に終了しない場合，Windowsの修正が必要です。
+
+10 OPTION ARITHMETIC NATIVE
+20 WHEN EXCEPTION IN
+30    PRINT 1/0
+40 USE
+50    PRINT "正常です."
+60 END WHEN 
+70 END 
+  
+  修正プログラムは，@Nifty FNECIPC LIB13で入手できます。
+       https://iw.nifty.com/iw/nifty/fnecipc/lib/13/
+  ① Windows95(4.00.950および4.00.950a)の場合は，
+         [W95]ｶｰﾈﾙ･その他ｺﾝﾎﾟｰﾈﾝﾄｱｯﾌﾟﾃﾞｰﾄﾓｼﾞｭｰﾙ
+  ② Windows95(4.00.950B USBなし)の場合，
+         数値演算ｺﾌﾟﾛｾｯｻﾄﾞﾗｲﾊﾞ<MCPD2UPD.EXE>
+  ③ Windows95(4.00.950B USBサポート)の場合，
+         数値演算ｺﾌﾟﾛｾｯｻﾄﾞﾗｲﾊﾞ<MCPD3UPD.EXE>
+
+  ①の場合は，あらかじめ次をご確認ください。
+ http://www.microsoft.com/mscorp/worldwide/japan/support/kb/articles/j049/9/49.htm
+
+
