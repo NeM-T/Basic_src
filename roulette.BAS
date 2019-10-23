@@ -1,3 +1,4 @@
+!ルーレット。判定はない。
 OPTION ANGLE DEGREES 
 SET WINDOW -1,1,-1,1
 !INPUT n
