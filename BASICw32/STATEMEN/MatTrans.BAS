@@ -1,6 +1,0 @@
-! •ÏŒ`ŽwŽ¦mat•¶
-DIM M(4,4)
-MAT M=SHIFT(1,2)*ROTATE(PI/6)*SCALE(0.5)
-MAT PRINT M
-END
-

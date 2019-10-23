@@ -1,5 +1,0 @@
-FOR x=0 TO 3 STEP 0.1
-   PRINT x,SQR(x)
-NEXT x
-END
-

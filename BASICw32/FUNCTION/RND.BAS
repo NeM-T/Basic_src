@@ -1,7 +1,0 @@
-! RND  0ˆÈã1–¢–ž‚Ì—”
-! —á@‚³‚¢‚±‚ë‚ð10‰ñU‚é
-FOR i=1 TO 10
-   PRINT INT(6*RND+1);
-NEXT i
-END
-

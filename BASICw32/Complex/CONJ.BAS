@@ -1,7 +1,0 @@
-OPTION ARITHMETIC COMPLEX
-! CONJ(z)‚Íz‚Ì‹¤–ð•¡‘f”
-LET i=SQR(-1)
-LET z=2+3*i
-PRINT z,CONJ(z)
-END
-

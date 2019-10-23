@@ -1,9 +1,0 @@
-10 DEF f(x)=x^3-3*x+1
-20 SET WINDOW -4,4,-4,4
-30 DRAW GRID
-40 FOR x=-4 TO 4 STEP 0.1
-50    PLOT LINES: x,f(x);
-60 NEXT X
-70 END
-
-

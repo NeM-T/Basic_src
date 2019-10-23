@@ -1,9 +1,0 @@
-10 ! CALL   副プログラムを呼び出す（実行する）
-20 DECLARE EXTERNAL SUB DIVIDE
-30 CALL DIVIDE(7,3,q,r)
-40 PRINT "7を3で割ったときの商と余りは，";q,r
-50 END
-60 EXTERNAL SUB DIVIDE(a,b,q,r)
-70 LET q=INT(a/b)
-80 LET r=MOD(a,b)
-90 END SUB
