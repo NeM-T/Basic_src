@@ -1,8 +1,9 @@
-INPUT filepath$ !waveƒtƒ@ƒCƒ‹‚Ìâ‘ÎƒpƒX‚ðƒtƒ@ƒCƒ‹–¼ŠÜ‚ß‚Ä“ü—Í
+!waveãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
+INPUT filepath$ !waveãƒ•ã‚¡ã‚¤ãƒ«ã®çµ¶å¯¾ãƒ‘ã‚¹ã‚’ãƒ•ã‚¡ã‚¤ãƒ«åå«ã‚ã¦å…¥åŠ›
 OPEN #1:NAME filepath$
 OPTION CHARACTER BYTE
 
-SUB nam (n,b$) !–¼Ì“Ç‚Ýž‚Ý
+SUB nam (n,b$) !åç§°èª­ã¿è¾¼ã¿
    LET b$=""
    FOR x=1 TO n
       CHARACTER INPUT #1:a$
@@ -11,7 +12,7 @@ SUB nam (n,b$) !–¼Ì“Ç‚Ýž‚Ý
    PRINT b$
 END SUB 
 
-SUB nom(n,a) !”Žš“Ç‚Ýž‚Ý
+SUB nom(n,a) !æ•°å­—èª­ã¿è¾¼ã¿
    FOR x=1 TO n
       CHARACTER INPUT #1:a$
       LET a=a+256^(x-1)*ORD(a$)
@@ -20,22 +21,22 @@ SUB nom(n,a) !”Žš“Ç‚Ýž‚Ý
 END SUB 
 
 
-!4 byte	R' 'I' 'F' 'F'	RIFFƒwƒbƒ_	@
-!4 byte	‚±‚êˆÈ~‚Ìƒtƒ@ƒCƒ‹ƒTƒCƒY (ƒtƒ@ƒCƒ‹ƒTƒCƒY - 8)	@	@
-!4 byte	W' 'A' 'V' 'E'	WAVEƒwƒbƒ_	RIFF‚ÌŽí—Þ‚ªWAVE‚Å‚ ‚é‚±‚Æ‚ð‚ ‚ç‚í‚·
-!4 byte	f' 'm' 't' ' ' (©ƒXƒy[ƒX‚àŠÜ‚Þ)	fmt ƒ`ƒƒƒ“ƒN	ƒtƒH[ƒ}ƒbƒg‚Ì’è‹`
-!4 byte	ƒoƒCƒg”	fmt ƒ`ƒƒƒ“ƒN‚ÌƒoƒCƒg”	ƒŠƒjƒAPCM ‚È‚ç‚Î 16(10 00 00 00)
-!2 byte	ƒtƒH[ƒ}ƒbƒgID	ŽQÆ	ƒŠƒjƒAPCM ‚È‚ç‚Î 1(01 00)
-!2 byte	ƒ`ƒƒƒ“ƒlƒ‹”	@	ƒ‚ƒmƒ‰ƒ‹ ‚È‚ç‚Î 1(01 00)  ƒXƒeƒŒƒI ‚È‚ç‚Î 2(02 00)
-!4 byte	ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg	Hz	44.1kHz ‚È‚ç‚Î 44100(44 AC 00 00)
-!4 byte	ƒf[ƒ^‘¬“x (Byte/SEC)	@	44.1kHz 16bit ƒXƒeƒŒƒI ‚È‚ç‚Î 44100~2~2 = 176400(10 B1 02 00)
-!2 byte	ƒuƒƒbƒNƒTƒCƒY (Byte/sample~ƒ`ƒƒƒ“ƒlƒ‹”)	@	16bit ƒXƒeƒŒƒI ‚È‚ç‚Î 2~2 = 4(04 00)
-!2 byte	ƒTƒ“ƒvƒ‹‚ ‚½‚è‚Ìƒrƒbƒg” (bit/sample)	WAV ƒtƒH[ƒ}ƒbƒg‚Å‚Í 8bit ‚© 16bit	16bit ‚È‚ç‚Î 16(10 00)
-!2 byte	Šg’£•”•ª‚ÌƒTƒCƒY	@	ƒŠƒjƒAPCM‚È‚ç‚Î‘¶Ý‚µ‚È‚¢
-!n byte	Šg’£•”•ª	@	ƒŠƒjƒAPCM‚È‚ç‚Î‘¶Ý‚µ‚È‚¢
-!4 byte	d' 'a' 't' 'a'	data ƒ`ƒƒƒ“ƒN ŽQÆ	@
-!4 byte	ƒoƒCƒg”n	”gŒ`ƒf[ƒ^‚ÌƒoƒCƒg”	@
-!n byte	”gŒ`ƒf[ƒ^	ŽQÆ
+!4 byte	R' 'I' 'F' 'F'	RIFFãƒ˜ãƒƒãƒ€	ã€€
+!4 byte	ã“ã‚Œä»¥é™ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚º (ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚º - 8)	ã€€	ã€€
+!4 byte	W' 'A' 'V' 'E'	WAVEãƒ˜ãƒƒãƒ€	RIFFã®ç¨®é¡žãŒWAVEã§ã‚ã‚‹ã“ã¨ã‚’ã‚ã‚‰ã‚ã™
+!4 byte	f' 'm' 't' ' ' (â†ã‚¹ãƒšãƒ¼ã‚¹ã‚‚å«ã‚€)	fmt ãƒãƒ£ãƒ³ã‚¯	ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã®å®šç¾©
+!4 byte	ãƒã‚¤ãƒˆæ•°	fmt ãƒãƒ£ãƒ³ã‚¯ã®ãƒã‚¤ãƒˆæ•°	ãƒªãƒ‹ã‚¢PCM ãªã‚‰ã° 16(10 00 00 00)
+!2 byte	ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆID	å‚ç…§	ãƒªãƒ‹ã‚¢PCM ãªã‚‰ã° 1(01 00)
+!2 byte	ãƒãƒ£ãƒ³ãƒãƒ«æ•°	ã€€	ãƒ¢ãƒŽãƒ©ãƒ« ãªã‚‰ã° 1(01 00)  ã‚¹ãƒ†ãƒ¬ã‚ª ãªã‚‰ã° 2(02 00)
+!4 byte	ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆ	Hz	44.1kHz ãªã‚‰ã° 44100(44 AC 00 00)
+!4 byte	ãƒ‡ãƒ¼ã‚¿é€Ÿåº¦ (Byte/SEC)	ã€€	44.1kHz 16bit ã‚¹ãƒ†ãƒ¬ã‚ª ãªã‚‰ã° 44100Ã—2Ã—2 = 176400(10 B1 02 00)
+!2 byte	ãƒ–ãƒ­ãƒƒã‚¯ã‚µã‚¤ã‚º (Byte/sampleÃ—ãƒãƒ£ãƒ³ãƒãƒ«æ•°)	ã€€	16bit ã‚¹ãƒ†ãƒ¬ã‚ª ãªã‚‰ã° 2Ã—2 = 4(04 00)
+!2 byte	ã‚µãƒ³ãƒ—ãƒ«ã‚ãŸã‚Šã®ãƒ“ãƒƒãƒˆæ•° (bit/sample)	WAV ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆã§ã¯ 8bit ã‹ 16bit	16bit ãªã‚‰ã° 16(10 00)
+!2 byte	æ‹¡å¼µéƒ¨åˆ†ã®ã‚µã‚¤ã‚º	ã€€	ãƒªãƒ‹ã‚¢PCMãªã‚‰ã°å­˜åœ¨ã—ãªã„
+!n byte	æ‹¡å¼µéƒ¨åˆ†	ã€€	ãƒªãƒ‹ã‚¢PCMãªã‚‰ã°å­˜åœ¨ã—ãªã„
+!4 byte	d' 'a' 't' 'a'	data ãƒãƒ£ãƒ³ã‚¯ å‚ç…§	ã€€
+!4 byte	ãƒã‚¤ãƒˆæ•°n	æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°	ã€€
+!n byte	æ³¢å½¢ãƒ‡ãƒ¼ã‚¿	å‚ç…§
 
 
 CALL nam(4,rift$)
@@ -45,12 +46,12 @@ CALL nam(4,fmt$)
 CALL nom(4,fmt_size)
 CALL nom(2,ID)
 CALL nom(2,CHANNEL)
-CALL nom(4,f)!f=Žü”g”
-CALL nom(4,v)!v=‘¬“x
+CALL nom(4,f)!f=å‘¨æ³¢æ•°
+CALL nom(4,v)!v=é€Ÿåº¦
 CALL nom(2,brock)
 CALL nom(2,bit_s)
 
-IF NOT ID=1 THEN !Šg’£•”‚ª‚ ‚éê‡B‚Æ‚è‚ ‚¦‚¸–³Ž‹
+IF NOT ID=1 THEN !æ‹¡å¼µéƒ¨ãŒã‚ã‚‹å ´åˆã€‚ã¨ã‚Šã‚ãˆãšç„¡è¦–
 !CALL nom(2,nom_kaku)
 !CALL 
 END IF 
